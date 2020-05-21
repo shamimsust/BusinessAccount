@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ {% block content %}
+<form method="post">
+{% csrf_token %}
+
+<div class="col-md-6">
+<div class="form-group">
+<div class="form-field">
+<div class="select-wrap">
+<div class="icon"><span class="fa fa-chevron-down"></span></div>
+<select name="field" id="" class="form-control">
+{% for element in form %}
+<option value="{{ element.id }}">{{ element.name }}</option>
+{% endfor %}
+</select>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+			<div class="form-group">
+	 <input type="submit" value="Select Customer" class="btn btn-secondary py-3 px-4">
+  </div>
+</div>
+</div>
+</form>
+{% endblock %}
+</body>
+</html>

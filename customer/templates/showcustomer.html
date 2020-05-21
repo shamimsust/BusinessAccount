@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Show Customer Details </title>
+</head>
+{% block content %}
+<div class="container">
+
+            <h4>Customer Details</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                 <th><h5>Name</h5></th>
+<th><h5>Address</h5></th>
+<th><h5>Phone</h5></th>
+<th><h5>Total Due</h5></th>
+<th><h5>Reference</h5></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+<td><h5>{{ customer.name }}</h5></td>
+<td><h5>{{ customer.address }}</h5></td>
+<td><h5>{{ customer.phone }}</h5></td>
+<td><h5>{{ customer.total_due }}</h5></td>
+<td><<h5>{{ customer.reference }}</h5></td>
+</tr>
+                </tr>
+                <tr>
+               <div class="order-lg-last">
+         <td> <a href="{% url 'addfixedproduct' customer.id %}" class="btn btn-primary">Add Fixed Product</a>
+        </td>
+    <td> <a href="{% url 'addyardproduct' customer.id %}" class="btn btn-primary">Add Yard Product</a>
+        </td>  
+         <td> <a href="{% url 'payment' customer.id %}" class="btn btn-primary">Make Payment</a>
+        </td>     
+        </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+{% endblock %}
+</html>

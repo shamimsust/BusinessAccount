@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+ {% block content %}
+ <span class="subheading">Login Form</span> 
+ <h2 class="mb-4">Login to your account</h2>
+	<form  class="appointment" method="post">
+	{% csrf_token %}
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+			<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Username" name="username">
+			</div>
+			</div>
+		<div class="col-md-6">
+		<div class="form-group">
+			<input type="password" class="form-control" placeholder="Password" name="password">
+			 </div>
+			</div>			
+			<div class="col-md-6">
+			<div class="form-group">
+		<input type="submit" value="Login" class="btn btn-secondary py-3 px-4">
+			 </div>
+				</div>
+		    </div>
+		</form>
+ 
+{% endblock %}
+</body>
+</html>
