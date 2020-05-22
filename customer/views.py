@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from customer.form import CustomerForm, FixedProductForm, YardProductForm,\
     PaymentForm
-from customer.models import Customer
+from customer.models import Customer, FixedProduct, YardProduct
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -12,13 +12,26 @@ def findcustomer(request):
         data=int(request.POST.get("field"))
         c1=Customer.objects.get(id=data)
         return redirect("showcustomer",c1.id)
+    else:
+        query = request.GET.get('name')
+        if query:
+            # query example
+            form = Customer.objects.filter(name__icontains=query)
+        else:
+            form = []
     return render(request,"findcustomer.html",{'form':form})
 @login_required(login_url='login')
 def showcustomer(request,c1):
     customer=Customer.objects.get(id=c1)
     fform=FixedProductForm()
     yform=YardProductForm()
-    return render(request, "showcustomer.html",{'customer':customer,'fform':fform,'yform':yform} ) 
+    return render(request, "showcustomer.html",{'customer':customer,'fform':fform,'yform':yform} )
+@login_required(login_url='login')
+def purchasedetails(request,c1):
+    customer1=Customer.objects.get(id=c1)
+    fproduct=FixedProduct.objects.filter(customer=customer1).order_by('-time')
+    yproduct=YardProduct.objects.filter(customer=customer1).order_by('-time')
+    return render(request, "purchasedetails.html",{'fproduct':fproduct,'yproduct':yproduct} )  
 @login_required(login_url='login')
 def addcustomer(request):  
     if request.method == "POST":  
@@ -38,8 +51,10 @@ def addfixedproduct(request,cid):
     if request.method=="POST":
         fixedproduct= FixedProductForm(request.POST)
         if fixedproduct.is_valid():
-            fixedproduct.save()
+            f=fixedproduct.save()
             customer=Customer.objects.get(id=cid)
+            f.customer=customer
+            f.save()
             due=customer.total_due
             due1=due+int(request.POST.get('price'))
             customer.total_due=due1
@@ -60,11 +75,15 @@ def addyardproduct(request,cid):
             gira=int(data.get('gira'))
             price=int(data.get('per_yard_price'))
             tprice=(yard+(gira/16))*price
-            yardproduct.total_price=tprice
-            yardproduct.save()
+            y=yardproduct.save()
             due1=due+tprice
             customer.total_due=due1
             customer.save()
+            y.customer=customer
+            y.save()
+            yobj=YardProduct.objects.get(id=y.id)
+            yobj.total_price=tprice
+            yobj.save()
             return redirect("showcustomer",customer.id)
     else:
         yardproduct=YardProductForm()
@@ -79,8 +98,7 @@ def payment(request,cid):
             due=due-int(request.POST.get("pay"))
             customer.total_due=due
             customer.save()
-            payform.save()
-            
+            payform.save() 
             return redirect("showcustomer", customer.id)
     else:
         payform=PaymentForm()

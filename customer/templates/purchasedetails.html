@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+<meta charset="UTF-8">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Show Customer Details </title>
+
+{% block content %}
+ 
+<div class="container">
+ <div class="order-lg-last">
+	<h4>Fixed Purchase Details</h4>
+	 <table class="table">
+              <thead>
+                <tr>
+                 
+<th><h5>Date</h5></th>
+<th><h5>Product Details</h5></th>
+<th><h5>Price</h5></th>
+                </tr>
+              </thead>
+	 <tbody>
+	 {% for customer in fproduct %}
+                <tr>
+<td><h5>{{ customer.time }}</h5></td>
+<td><h5>{{ customer.details }}</h5></td>
+<td><h5>{{ customer.price }}</h5></td>
+
+</tr>
+{% endfor %}
+</tbody></table>
+	
+	</div>
+	</div>  
+	
+	
+<div class="container">
+ <div class="order-lg-last">
+	<h4>Fixed Purchase Details</h4>
+	 <table class="table">
+              <thead>
+                <tr>
+                 
+<th><h5>Date</h5></th>
+<th><h5>Product Details</h5></th>
+<th><h5>Yard</h5></th>
+<th><h5>Gira</h5></th>
+<th><h5>Per Yard Price</h5></th>
+<th><h5>Total Price</h5></th>
+                </tr>
+              </thead>
+	 <tbody>
+	 {% for customer in yproduct %}
+                <tr>
+
+<td><h5>{{ customer.time }}</h5></td>
+<td><h5>{{ customer.details }}</h5></td>
+<td><h5>{{ customer.yard }}</h5></td>
+<td><h5>{{ customer.gira }}</h5></td>
+<td><h5>{{ customer.per_yard_price }}</h5></td>
+<td><h5>{{ customer.total_price }}</h5></td>
+</tr>
+{% endfor %}
+<tr>
+<td>
+ <button onclick="goBack()" class="btn btn-secondary py-3 px-4">Go Back</button>
+
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+	
+	</div>
+	</div>  
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script> 
+
+{% endblock %}
+

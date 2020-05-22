@@ -10,6 +10,7 @@
 </head>
 {% block content %}
 <div class="container">
+ <div class="order-lg-last">
 
             <h4>Customer Details</h4>
             <table class="table">
@@ -28,22 +29,24 @@
 <td><h5>{{ customer.address }}</h5></td>
 <td><h5>{{ customer.phone }}</h5></td>
 <td><h5>{{ customer.total_due }}</h5></td>
-<td><<h5>{{ customer.reference }}</h5></td>
+<td><h5>{{ customer.reference }}</h5></td>
 </tr>
-                </tr>
+             
                 <tr>
-               <div class="order-lg-last">
-         <td> <a href="{% url 'addfixedproduct' customer.id %}" class="btn btn-primary">Add Fixed Product</a>
+              
+         <td> <a href="{% url 'addfixedproduct' customer.id %}" class="btn btn-secondary py-3 px-4">Add Fixed Product</a>
         </td>
-    <td> <a href="{% url 'addyardproduct' customer.id %}" class="btn btn-primary">Add Yard Product</a>
+    <td> <a href="{% url 'addyardproduct' customer.id %}" class="btn btn-secondary py-3 px-4">Add Yard Product</a>
         </td>  
-         <td> <a href="{% url 'payment' customer.id %}" class="btn btn-primary">Make Payment</a>
+         <td> <a href="{% url 'payment' customer.id %}" class="btn btn-secondary py-3 px-4">Make Payment</a>
         </td>     
-        </div>
+          <td> <a href="{% url 'purchasedetails' customer.id %}" class="btn btn-secondary py-3 px-4">Purchase History</a>
+        </td>     
                 </tr>
               </tbody>
             </table>
           </div>
-        
-{% endblock %}
+          </div>
+          
+      {% endblock %}
 </html>
