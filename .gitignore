@@ -3,6 +3,10 @@
 # Edit at https://www.gitignore.io/?templates=django
 
 ### Django ###
+*.py[co]
+*.sw[po]
+*~
+/secrets.json
 *.log
 *.pot
 *.pyc
